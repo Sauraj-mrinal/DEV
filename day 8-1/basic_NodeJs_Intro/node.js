@@ -1,12 +1,16 @@
 // if u want to use some module then u have to use require 
 
-const cp = require('child_process');
-// child_process module is node module while is use to create sub process inside a script
+ const cp = require('child_process');
+ console.log("calculator in opening");
 
-console.log('Trying to open the calculator');
-
-cp.e
-
+ cp.execSync('calc');
+ console.log('calculator is opend ');
 
 
+ // also we can access the js file or other file using 
+
+ let jsFile = cp.execSync('node test.js');
+ console.log(jsFile);
+
+ //
 
