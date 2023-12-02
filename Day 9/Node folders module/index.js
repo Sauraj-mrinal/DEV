@@ -26,16 +26,17 @@ const fileSystem  = require('fs')
 // check if directory exists or not 
 
 // method --> existSync-->it will return true or false
-let doesExist = fileSystem.existsSync('myDirectory')
+     let doesExist = fileSystem.existsSync('myDirectory')
 
 
 console.log(doesExist);// false
 
-//------------status of directory
-//-------------------------------
-// method -->   lstatSync -->
-let status = fileSystem.lstatSync('myDirectory')
-console.log(status);
+        //------------status of directory
+        //-------------------------------
+        // method -->   lstatSync -->
+
+    let status = fileSystem.lstatSync('myDirectory')
+    console.log(status);
 
 // output ---------->
 // Stats {
@@ -69,6 +70,29 @@ console.log('is Directory',status.isDirectory());
 // is File ? false
 // is Directory true
 
+// readdirSync is A method which is use to see content inside a directory
+
+let folderPath = "file:///E:/notes_coding%20ninja/19.%20Notes%20-%20JQuery.pdf";
+
+let folderContent = fileSystem.readdirSync(folderPath);
+
+console.log('Folder content: ' + folderContent);
+
+// Copying file From SRC to dest
+
+let srcFilePath = "file:///E:/notes_coding%20ninja/19.%20Notes%20-%20JQuery.pdf";
+
+let destinationFilePath = "E:\pepDev\DEV\Day 9\Node folders module\myDirectory";
+
+let tobecopidedFilePath = path.basename(srcFilePath);
+
+let destPath = path.join(destinationFolderPath , tobecopidedFileName);
+
+fileSystem.copyFileSync(srcFilePath , desPath)
+
+console.log('File copied');
+
+//  path: 'file:///E:/notes_coding%20ninja/19.%20Notes%20-%20JQuery.pdf'
 
 
 
