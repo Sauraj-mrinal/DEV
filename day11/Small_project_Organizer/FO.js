@@ -47,6 +47,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { types } = require('util');
 
 // so we will ise slice--> method of array
 
@@ -56,7 +57,7 @@ let inputArray = input;
 console.log(inputArray);// ye zero index and 1 index ko chhor ke baki ko array me de dega as a input variable 
 
 let type ={
-    media: ["mp4", "mkv", "mp3"], 
+    media: ["mp4", "mkv", "mp3","jpeg"], 
     archives: ["zip", "7z", "rar", "tar", "gz", "ar", "iso", "xz"],
     documents: [
     "docx",
@@ -159,7 +160,7 @@ function organizeHelper(src , dest){
 
 
         // we first identify file and folder separately 
-        console.log(childName); 
+      //  console.log(childName); 
 
         // output --> it is in the array form 
         // [
@@ -177,8 +178,8 @@ function organizeHelper(src , dest){
         for(let i=0; i<childName.length; i++) {
            // so we find path first 
            let childAddress = path.join(src, childName[i]);
-           console.log(childAddress);
-           console.log('--------------------------------');
+        //    console.log(childAddress);
+        //    console.log('--------------------------------');
            // output
             //E:\pepDev\DummyFolder\mca.pdf
             // E:\pepDev\DummyFolder\newTxtFile.txt
@@ -191,19 +192,35 @@ function organizeHelper(src , dest){
 
             if(isFile == true) {
                let fileCategory = getCategory(childName[i]);
+               console.log(childName[i]+ '  belongs to ' + fileCategory);
             }
         }
 }
 
 function getCategory(FileName){
+    // we extract the extension name of the target file 
    let ext = path.extname(FileName).slice(1)
-   console.log(ext);
+   //    console.log(ext);
+
+  for(let key in type) {
+    // here we find out categorie type array
+       let cTypeArrr = type[key]
+       //console.log( cTypeArrr);
+
+
+       for(let i=0; i<cTypeArrr.length; i++) {
+        if(ext == cTypeArrr[i]){
+           return key;
+        }
+     }
+
+    }
+
+
+   return 'others';
+
 
 }
-
-
-
-
 
 
 
