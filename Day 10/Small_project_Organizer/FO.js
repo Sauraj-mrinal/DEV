@@ -44,7 +44,13 @@
 // argv[2] = orgsnize
 //argv[3] = folderPath
 
+
+const fs = require('fs');
+const path = require('path');
+
 // so we will ise slice--> method of array
+
+console.log('hii this is mrinal');
 let input  =  process.argv.slice(2);
 let inputArray = input;
 console.log(inputArray);// ye zero index and 1 index ko chhor ke baki ko array me de dega as a input variable 
@@ -61,6 +67,8 @@ switch(command){
 
     case 'organize':
         console.log('Organize Implemented');
+        organizeFn(inputArray[1])
+        console.log('hii tihs is input arra content '+ inputArray[1]);
         break;
     
     case 'help':
@@ -77,6 +85,41 @@ function helpFun(){
                               2) organize - node FO.js organize <directory path>
                               3) help - node FO.js help <directory path>
     `);
+}
+
+// Organize function will organize all your target folder's in a differnt  folder ACCORDING to thair extension
+
+function organizeFn(dirPath){
+    //console.log(dirPath);
+     
+//
+    if(dirPath==undefined){
+        console.log('please enter a directory path');
+        return;
+    }// check whether directory path is passes or not simple return 
+
+    let doesExist = fs.existsSync(dirPath);// it eill return true if exists or falase if not exists
+
+    // so if my directory esist => true then we have o make a 
+    if(doesExist == true){
+       let  destPath = path.join(dirPath, 'Organized_Files')
+    //    path.join(dirPath,)
+// we created a path for orgnized Files Folder 
+
+
+// check whether in the given destPath does a folder exist with name and if does not exist then A FOLDER 
+        if(fs.existsSync(destPath)==false){
+            fs.mkdirSync(destPath);
+            console.log('created successfully');
+        }
+        else{
+            console.log('Folder already exists');
+        }
+        
+    }
+    else{
+        console.log('please enter a valid path');
+    }
 
 }
 
