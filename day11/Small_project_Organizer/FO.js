@@ -88,13 +88,14 @@ let command = inputArray[0];// to take command
 //Organize Implemented
 switch(command){
      case 'tree':
-        console.log('tree Implemented');
+        // console.log('tree Implemented');
+        treeFn[inputArray[1]]
         break;
 
     case 'organize':
         console.log('Organize Implemented');
         organizeFn(inputArray[1])
-        console.log('hii tihs is input arra content '+ inputArray[1]);
+        console.log('hii tihs is input area content '+ inputArray[1]);
         break;
     
     case 'help':
@@ -155,12 +156,11 @@ function organizeFn(dirPath){// we need a directory path as a parameter
 // when it call my all file will be organized. 
 function organizeHelper(src , dest){
     // to get the content of the folder we need to write like .
-
         let childName  = fs.readdirSync(src);
 
 
         // we first identify file and folder separately 
-      //  console.log(childName); 
+        //  console.log(childName); 
 
         // output --> it is in the array form 
         // [
@@ -178,9 +178,9 @@ function organizeHelper(src , dest){
         for(let i=0; i<childName.length; i++) {
            // so we find path first 
            let childAddress = path.join(src, childName[i]);
-        //    console.log(childAddress);
-        //    console.log('--------------------------------');
-           // output
+            //    console.log(childAddress);
+            //    console.log('--------------------------------');
+            // output
             //E:\pepDev\DummyFolder\mca.pdf
             // E:\pepDev\DummyFolder\newTxtFile.txt
             // E:\pepDev\DummyFolder\Organized_Files
@@ -192,7 +192,8 @@ function organizeHelper(src , dest){
 
             if(isFile == true) {
                let fileCategory = getCategory(childName[i]);
-               console.log(childName[i]+ '  belongs to ' + fileCategory);
+               // console.log(childName[i]+ '  belongs to ' + fileCategory);
+               sendFiles(childAddress ,dest,fileCategory)
             }
         }
 }
@@ -201,13 +202,10 @@ function getCategory(FileName){
     // we extract the extension name of the target file 
    let ext = path.extname(FileName).slice(1)
    //    console.log(ext);
-
   for(let key in type) {
     // here we find out categorie type array
        let cTypeArrr = type[key]
        //console.log( cTypeArrr);
-
-
        for(let i=0; i<cTypeArrr.length; i++) {
         if(ext == cTypeArrr[i]){
            return key;
@@ -215,16 +213,56 @@ function getCategory(FileName){
      }
 
     }
-
-
    return 'others';
-
-
 }
 
+function sendFiles(srcFilePath, dest, fileCategory) {
+    // we will create path for each category type encountered to create folders of their names
+    let catPath = path.join(dest, fileCategory);
+  
+    //D:\FJP4\test folder\organized_files\media
+    //D:\FJP4 \test folder\organized_files\documents
+  
+    if (fs.existsSync(catPath) == false) {
+      fs.mkdirSync(catPath);
+    }
+  
+    let fileName = path.basename(srcFilePath);
+  
+    // we took out the basename of all the files
+  
+    let destFilePath = path.join(catPath, fileName);
+  
+    fs.copyFileSync(srcFilePath, destFilePath);
+  
+    fs.unlinkSync(srcFilePath);
+  
+    console.log("Files Organized");
+  }
+  
+ function treeFn(dirPath){
+    if(dirPath == undefined){
+        console.log('please enter valid path');
+        return ;
+    }
+    else{
+        let doesExist = fs.existsSync(dirPath);
+        if(doesExist == true ){
+            treeHelper(dirPath,indent);
+        }
+    }
+ }
+
+function treeHelper(targetPath ,  indent){
+  
+    let is File = fs.lstatSync(targetPath).isFile();
 
 
-
+    if(isFile == true){
+        let FileName  = path.basename(targetPath);
+        console.log(indent + "|--" +fileName);
+    }
+}
 
 
 
