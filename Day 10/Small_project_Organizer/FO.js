@@ -98,7 +98,7 @@ function organizeFn(dirPath){
         return;
     }// check whether directory path is passes or not simple return 
 
-    let doesExist = fs.existsSync(dirPath);// it eill return true if exists or falase if not exists
+    let doesExist = fs.existsSync(dirPath);// it will return true if exists or falase if not exists
 
     // so if my directory esist => true then we have o make a 
     if(doesExist == true){
