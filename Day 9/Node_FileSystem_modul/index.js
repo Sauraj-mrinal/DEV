@@ -53,6 +53,9 @@ console.log(content.toString());
 // -----------------------------------------------------------
 // write FILE 
 //------------------------------------------------------------
+// writeFileSync()-> inside this function if i write any file name which is not exist  then it will be create the new file 
+
+// writeFileSync()-> if i write any file name which is not exist as well as file content which i want to write inside the file , then it will create a file and and add content inside .
 fileSystem.writeFileSync('write.txt' , 'this is file 2 data ')
 console.log('file Written');
 
